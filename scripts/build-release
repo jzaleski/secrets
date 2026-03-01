@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -e;
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)";
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")";
+
+TMP_DIR="$PROJECT_ROOT/tmp";
+SCRIPTS=("check-secrets" "decrypt-secrets" "encrypt-secrets");
+VERSION_FILE="$PROJECT_ROOT/VERSION";
+
+# Read current version;
+CURRENT_VERSION=$(cat "$VERSION_FILE");
+
+# Bump version (patch)
+IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION";
+NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))";
+echo "Bumping version from $CURRENT_VERSION to $NEW_VERSION";
+
+# Write new version;
+echo "$NEW_VERSION" > "$VERSION_FILE";
+
+# Create tarball;
+TARBALL_NAME="secrets-$NEW_VERSION.tar.gz";
+TARBALL_PATH="$TMP_DIR/$TARBALL_NAME";
+
+echo "Creating $TARBALL_PATH...";
+
+# Create temp directory for packaging;
+TEMP_PACK_DIR=$(mktemp -d);
+trap "rm -rf $TEMP_PACK_DIR" EXIT;
+
+# Copy scripts and VERSION file;
+for script in "${SCRIPTS[@]}"; do
+    cp "bin/$script" "$TEMP_PACK_DIR/";
+done;
+cp "$VERSION_FILE" "$TEMP_PACK_DIR/";
+
+# Create tarball;
+tar -czf "$TARBALL_PATH" -C "$TEMP_PACK_DIR" "${SCRIPTS[@]}" "VERSION";
+
+echo "Created $TARBALL_PATH";
+echo "New version: $NEW_VERSION";

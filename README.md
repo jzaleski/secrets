@@ -4,9 +4,12 @@ A simple CLI toolset for managing encrypted secrets using GPG
 
 ## Tools
 
-- **encrypt-secrets** - Encrypts the `secrets` directory and increments the version
-- **decrypt-secrets** - Decrypts and extracts the secrets archive
-- **check-secrets** - Verifies the secrets directory is up to date
+All tools are located in the `bin/` directory:
+
+- **bin/encrypt-secrets** - Encrypts the `secrets` directory and increments the version
+- **bin/decrypt-secrets** - Decrypts and extracts the secrets archive
+- **bin/check-secrets** - Verifies the secrets directory is up to date
+- **scripts/build-release** - Bumps version and creates release tarball
 
 ## Requirements
 
@@ -23,23 +26,28 @@ A simple CLI toolset for managing encrypted secrets using GPG
 ### Setup
 
 1. Create a `secrets` directory with your sensitive files
-2. Run `SECRETS_PASSPHRASE="your-passphrase" encrypt-secrets` to encrypt the directory
+2. Run `SECRETS_PASSPHRASE="your-passphrase" bin/encrypt-secrets` to encrypt the directory
 
 ### Workflow
 
 **To decrypt secrets:**
 ```bash
-SECRETS_PASSPHRASE="your-passphrase" decrypt-secrets
+SECRETS_PASSPHRASE="your-passphrase" bin/decrypt-secrets
 ```
 
 **To update and re-encrypt:**
 ```bash
-SECRETS_PASSPHRASE="your-passphrase" encrypt-secrets
+SECRETS_PASSPHRASE="your-passphrase" bin/encrypt-secrets
 ```
 
 **To verify secrets are current:**
 ```bash
-check-secrets
+bin/check-secrets
+```
+
+**To create a release:**
+```bash
+scripts/build-release
 ```
 
 ## How It Works
