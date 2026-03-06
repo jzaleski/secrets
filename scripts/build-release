@@ -6,7 +6,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)";
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")";
 
 TMP_DIR="$PROJECT_ROOT/tmp";
-SCRIPTS=("check-secrets" "decrypt-secrets" "encrypt-secrets");
+SCRIPTS=(
+  "check-secrets"
+  "decrypt-secrets"
+  "encrypt-secrets"
+  "init-secrets"
+);
 VERSION_FILE="$PROJECT_ROOT/VERSION";
 
 # Read current version;
@@ -32,7 +37,7 @@ trap "rm -rf $TEMP_PACK_DIR" EXIT;
 
 # Copy scripts and VERSION file;
 for script in "${SCRIPTS[@]}"; do
-    cp "bin/$script" "$TEMP_PACK_DIR/";
+  cp "bin/$script" "$TEMP_PACK_DIR/";
 done;
 cp "$VERSION_FILE" "$TEMP_PACK_DIR/";
 

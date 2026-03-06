@@ -6,6 +6,7 @@ A simple CLI toolset for managing encrypted secrets using GPG
 
 All tools are located in the `bin/` directory:
 
+- **bin/init-secrets** - Initializes the secrets directory structure
 - **bin/encrypt-secrets** - Encrypts the `secrets` directory and increments the version
 - **bin/decrypt-secrets** - Decrypts and extracts the secrets archive
 - **bin/check-secrets** - Verifies the secrets directory is up to date
@@ -25,10 +26,16 @@ All tools are located in the `bin/` directory:
 
 ### Setup
 
-1. Create a `secrets` directory with your sensitive files
-2. Run `SECRETS_PASSPHRASE="your-passphrase" bin/encrypt-secrets` to encrypt the directory
+1. Run `bin/init-secrets` to create the secrets directory structure
+2. Add your sensitive files to the `secrets` directory
+3. Run `SECRETS_PASSPHRASE="your-passphrase" bin/encrypt-secrets` to encrypt the directory
 
 ### Workflow
+
+**To initialize secrets:**
+```bash
+bin/init-secrets
+```
 
 **To decrypt secrets:**
 ```bash
