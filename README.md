@@ -10,6 +10,9 @@ All tools are located in the `bin/` directory:
 - **bin/encrypt-secrets** - Encrypts the `secrets` directory and increments the version
 - **bin/decrypt-secrets** - Decrypts and extracts the secrets archive
 - **bin/check-secrets** - Verifies the secrets directory is up to date
+
+## Release
+
 - **scripts/build-release** - Bumps version and creates release tarball
 
 ## Requirements
